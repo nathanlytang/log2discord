@@ -78,14 +78,14 @@ export interface RequestOptions {
      */
     message: string;
     /**
-     * Type of log (ERROR, WARN, DEBUG, INFO, CUSTOM).  The type field will be ignored unless the logger.custom(...) function is used.
+     * Type of log (ERROR, WARN, DEBUG, INFO, CUSTOM).  The type field will be ignored unless logger.custom(...) is used.
      * ```js
      * type: "CUSTOM TYPE" 
      * ```
      */
     type?: string;
     /**
-     * Color defined by type.  Uses decimal format
+     * Uses decimal format.  Color can only be defined when logger.custom(...) is used
      * ```js
      * color: 15252531
      * ```
