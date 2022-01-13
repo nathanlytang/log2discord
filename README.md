@@ -48,7 +48,7 @@ logger.error({
     error: Error("Example error") // Can also be an error callback
 })
 ```
-![Error log example](/docs/examples/error.png "Error log example")
+![Error log example](https://raw.githubusercontent.com/nathanlytang/log2discord/master/docs/examples/error.png "Error log example")
 
 #### Warning
 ```js
@@ -57,7 +57,7 @@ logger.warn({
     message: "This is a warning message 🚧",
 })
 ```
-![Warning log example](/docs/examples/warn.png "Warning log example")
+![Warning log example](https://raw.githubusercontent.com/nathanlytang/log2discord/master/docs/examples/warn.png "Warning log example")
 
 #### Debug
 ```js
@@ -69,7 +69,7 @@ logger.debug({
     }
 })
 ```
-![Debug log example](/docs/examples/debug.png "Debug log example")
+![Debug log example](https://raw.githubusercontent.com/nathanlytang/log2discord/master/docs/examples/debug.png "Debug log example")
 
 #### Info
 ```js
@@ -78,7 +78,7 @@ logger.info({
     message: "This is an info message 🔤",
 })
 ```
-![Info log example](/docs/examples/info.png "Info log example")
+![Info log example](https://raw.githubusercontent.com/nathanlytang/log2discord/master/docs/examples/info.png "Info log example")
 
 #### Custom
 ```js
@@ -92,7 +92,7 @@ logger.custom({
     }
 })
 ```
-![Custom log example](/docs/examples/custom.png "Custom log example")
+![Custom log example](https://raw.githubusercontent.com/nathanlytang/log2discord/master/docs/examples/custom.png "Custom log example")
 
 ### Available logging options
 |Option|Type|Description|Notes|
