@@ -1,2 +1,8 @@
 # log2discord
-Log Node.js errors to Discord
+log2discord is a logging module that logs events and errors to Discord.
+
+## Install
+```
+# With npm
+npm install log2discord
+````
