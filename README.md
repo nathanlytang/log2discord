@@ -8,7 +8,7 @@ npm install log2discord
 ```
 
 ## Configuration
-Log2discord requires the use of Discord webhhooks.  Instructions on how to obtain a webhook url can be [found here](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks).
+Log2discord requires the use of Discord webhooks.  Instructions on how to obtain a webhook url can be [found here](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks).
 
 ### Example configuration
 ```js
@@ -34,7 +34,7 @@ const logger = new log2discord.Logger({
 |name|`string`|Your application name|Optional|
 |pid|`boolean`|Display process id|Optional|
 |host|`boolean`|Display hostname|Optional|
-|dateTime|`object|false`|Display date and time|Optional|
+|dateTime|`object` or `false`|Display date and time|Optional|
 |timeZone|`string`|Your chosen timezone (Default is UTC)|Optional|
 |locale|`string`|Your chosen locale|Optional|
 
