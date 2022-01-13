@@ -26,15 +26,15 @@ export default class Logger {
 
     /**
      * Construct the Logger class
-     * @typedef {Object} options Logger options
-     * @property {string} options.webhook The Discord webhook URL
-     * @property {string} [options.name] Name of the application
-     * @property {string| null} [options.icon] Application icon URL string
-     * @property {boolean} [options.pid] Show application process ID
-     * @property {boolean} [options.host] Show hostname
-     * @property {DateTimeOptions | false} [options.dateTime] Timezone and locale information.  If false, then no time will be displayed
-     * @property {locale} [options.dateTime.locale] Your locale (Eg. "en-US")
-     * @property {timeZone} [options.dateTime.timeZone] Your timezone (Eg. "America/New_York")
+     * @typedef {Object} LoggerOptions
+     * @param {string} options.webhook The Discord webhook URL
+     * @param {string} [options.name] Name of the application
+     * @param {string| null} [options.icon] Application icon URL string
+     * @param {boolean} [options.pid] Show application process ID
+     * @param {boolean} [options.host] Show hostname
+     * @param {DateTimeOptions | false} [options.dateTime] Timezone and locale information.  If false, then no time will be displayed
+     * @param {locale} [options.dateTime.locale] Your locale (Eg. "en-US")
+     * @param {timeZone} [options.dateTime.timeZone] Your timezone (Eg. "America/New_York")
      */
     constructor(options: LoggerOptions) {
         this.webhook = options.webhook;
@@ -59,7 +59,7 @@ export default class Logger {
 
     /**
      * Send a POST request to webhook using specified options
-     * @param options Request options
+     * @param {RequestOptions} options Request options
      */
     async sendReq(options: RequestOptions): Promise<void> {
         fetch(this.webhook, {
@@ -125,115 +125,48 @@ export default class Logger {
     }
 
     /**
-     * Log an error to webhook
-     * @typedef {Object} options Request options
-     * @property {string} options.message Message to be displayed
-     * @property {string} [options.title] Title your message
-     * @property {Record<string, unknown> | undefined} [options.json] Any valid json object
-     * @property {Error} [options.error] Pass in your error object
-     */
+     * @typedef {Object} RequestOptions
+     * @param {string} message Message to pass to log
+     * @param {string} [type] Log level (Error, warn, debug, info)
+     * @param {number} [color] Color defined by log level
+     * @param {string} [title] Optional title to include in log
+     * @param {Record<string|unknown>} [json] Optional json object to include in log
+     * @param {Error} [error] Optional error object to include in log
+     */    
+
+    /** @type {RequestOptions} options - Request options */
     async error(options: RequestOptions): Promise<void> {
         options.type = "ERROR";
         options.color = 15158332;
         await this.sendReq(options);
     }
 
-    /**
-     * Log a warning to webhook
-     * @typedef {Object} options Request options
-     * @property {string} options.message Message to be displayed
-     * @property {string} [options.title] Title your message
-     * @property {Record<string, unknown> | undefined} [options.json] Any valid json object
-     * @property {Error} [options.error] Pass in your error object
-     */
+    /** @type {RequestOptions} options - Request options */
     async warn(options: RequestOptions): Promise<void> {
         options.type = "WARNING";
         options.color = 16159744;
         await this.sendReq(options);
     }
 
-    /**
-     * Log a debug message to webhook
-     * @typedef {Object} options Request options
-     * @property {string} options.message Message to be displayed
-     * @property {string} [options.title] Title your message
-     * @property {Record<string, unknown> | undefined} [options.json] Any valid json object
-     * @property {Error} [options.error] Pass in your error object
-     */
+    /** @type {RequestOptions} options - Request options */
     async debug(options: RequestOptions): Promise<void> {
         options.type = "DEBUG";
         options.color = 40000;
         await this.sendReq(options);
     }
 
-    /**
-     * Log an info message to webhook
-     * @typedef {Object} options Request options
-     * @property {string} options.message Message to be displayed
-     * @property {string} [options.title] Title your message
-     * @property {Record<string, unknown> | undefined} [options.json] Any valid json object
-     * @property {Error} [options.error] Pass in your error object
-     */
+    /** @type {RequestOptions} options - Request options */
     async info(options: RequestOptions): Promise<void> {
         options.type = "INFO";
         options.color = 3447003;
         await this.sendReq(options);
     }
 
+    /** @type {RequestOptions} options - Request options */
+    async custom(options: RequestOptions): Promise<void> {
+        options.type ? options.type : options.type = "CUSTOM";
+        options.color ? options.color :  options.color = 12895428;
+        await this.sendReq(options);
+    }
+
 }
-
-
-// body: JSON.stringify({
-//     username: this.app,
-//     // avatar_url: 'https://www.starwindsoftware.com/blog/wp-content/uploads/2020/02/resultat-de-recherche-dimages-pour-azure-cdn.png',
-//     embeds: [
-//         {
-//             // decimal number colour of the side of the embed
-//             color: 15158332, // # E74C3C
-//             // author
-//             // - icon next to text at top (text is a link)
-//             author: {
-//                 name: "Error",
-//             },
-//             // embed title
-//             // - link on 2nd row
-//             title: options.title,
-//             url:
-//                 'https://gist.github.com/dragonwocky/ea61c8d21db17913a43da92efe0de634',
-//             // thumbnail
-//             // - small image in top right corner.
-//             thumbnail: {
-//                 url:
-//                     'https://cdn.discordapp.com/avatars/411256446638882837/9a12fc7810795ded801fdb0401db0be6.png',
-//             },
-//             // embed description
-//             // - text on 3rd row
-//             description: `\`\`\`${options.error.stack}\`\`\``,
-//             // custom embed fields: bold title/name, normal content/value below title
-//             // - located below description, above image.
-//             fields: [
-//                 {
-//                     name: 'field 1',
-//                     value: 'value',
-//                 },
-//                 {
-//                     name: 'field 2',
-//                     value: 'other value',
-//                 },
-//             ],
-//             // image
-//             // - picture below description(and fields)
-//             image: {
-//                 url:
-//                     'http://tolkiengateway.net/w/images/thumb/7/75/J.R.R._Tolkien_-_Ring_verse.jpg/300px-J.R.R._Tolkien_-_Ring_verse.jpg',
-//             },
-//             // footer
-//             // - icon next to text at bottom
-//             footer: {
-//                 text: new Date().toLocaleString(this.locale, { timeZone: this.timeZone }),
-//                 icon_url:
-//                     'https://cdn.discordapp.com/avatars/411256446638882837/9a12fc7810795ded801fdb0401db0be6.png',
-//             },
-//         },
-//     ],
-// })
