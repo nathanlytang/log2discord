@@ -1,0 +1,14 @@
+node_modules/
+.npm
+.eslintcache
+*.tgz
+.yarn-integrity
+.env
+.cache
+
+lib/
+dist/test/
+test/
+.eslintrc.cjs
+index.ts
+tsconfig.json
