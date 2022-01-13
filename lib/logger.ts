@@ -55,6 +55,24 @@ export default class Logger {
                 timeZone: options.dateTime.timeZone ? options.dateTime.timeZone : "UTC"
             };
         }
+
+        // Test if webhook and icon links are valid urls
+        if (this.webhook) {
+            try {
+                new URL(this.webhook);
+            } catch (err) {
+                throw new Error("Webhook is not a valid url");
+            }
+        }
+
+        if (this.icon) {
+            try {
+                new URL(this.icon);
+            } catch (err) {
+                throw new Error("Icon is not a valid url");
+            }
+        }
+
     }
 
     /**
@@ -132,7 +150,7 @@ export default class Logger {
      * @param {string} [title] Optional title to include in log
      * @param {Record<string|unknown>} [json] Optional json object to include in log
      * @param {Error} [error] Optional error object to include in log
-     */    
+     */
 
     /** @type {RequestOptions} options - Request options */
     async error(options: RequestOptions): Promise<void> {
@@ -165,7 +183,7 @@ export default class Logger {
     /** @type {RequestOptions} options - Request options */
     async custom(options: RequestOptions): Promise<void> {
         options.type ? options.type : options.type = "CUSTOM";
-        options.color ? options.color :  options.color = 12895428;
+        options.color ? options.color : options.color = 12895428;
         await this.sendReq(options);
     }
 
