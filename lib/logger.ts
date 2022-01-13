@@ -79,7 +79,7 @@ export default class Logger {
      * Send a POST request to webhook using specified options
      * @param {RequestOptions} options Request options
      */
-    async sendReq(options: RequestOptions): Promise<void> {
+    private async sendReq(options: RequestOptions): Promise<void> {
         fetch(this.webhook, {
             method: 'post',
             headers: {
