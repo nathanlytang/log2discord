@@ -1,6 +1,6 @@
 {
   "name": "log2discord",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Log messages to Discord",
   "main": "dist/index.js",
   "type": "module",
