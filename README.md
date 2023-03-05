@@ -1,5 +1,5 @@
 # log2discord
-Log2discord is a logging module that logs events and errors to Discord.
+Zero dependency Node.js module for logging using Discord webhooks.
 
 ## Install
 ```bash
