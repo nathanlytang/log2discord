@@ -1,6 +1,5 @@
-import fetch from 'node-fetch';
-import { hostname } from 'os';
-import { DateTimeOptions, LoggerOptions, RequestOptions } from '../index';
+import { hostname } from "os";
+import { DateTimeOptions, LoggerOptions, RequestOptions } from "../index";
 
 /**
  * Logger object
@@ -18,6 +17,9 @@ export default class Logger {
     /** @type {boolean} Show PID */
     private pid?: boolean;
 
+    /** @type {boolean} Set JSON pretty print or inline */
+    private jsonPretty?: boolean;
+
     /** @type {boolean} Show hostname */
     private host?: boolean;
 
@@ -31,6 +33,7 @@ export default class Logger {
      * @param {string} [options.name] Name of the application
      * @param {string| null} [options.icon] Application icon URL string
      * @param {boolean} [options.pid] Show application process ID
+     * @param {boolean} [options.jsonPretty] Set custom JSON pretty print
      * @param {boolean} [options.host] Show hostname
      * @param {DateTimeOptions | false} [options.dateTime] Timezone and locale information.  If false, then no time will be displayed
      * @param {locale} [options.dateTime.locale] Your locale (Eg. "en-US")
@@ -41,6 +44,7 @@ export default class Logger {
         this.name = options.name || "log2discord";
         this.icon = options.icon || null;
         this.pid = options.pid;
+        this.jsonPretty = options.jsonPretty;
         this.host = options.host;
         if (options.dateTime === undefined) {
             this.dateTime = {
@@ -52,7 +56,7 @@ export default class Logger {
         } else {
             this.dateTime = {
                 locale: options.dateTime.locale ? options.dateTime.locale : "default",
-                timeZone: options.dateTime.timeZone ? options.dateTime.timeZone : "UTC"
+                timeZone: options.dateTime.timeZone ? options.dateTime.timeZone : "UTC",
             };
         }
 
@@ -72,7 +76,6 @@ export default class Logger {
                 throw new Error("Icon is not a valid url");
             }
         }
-
     }
 
     /**
@@ -81,9 +84,9 @@ export default class Logger {
      */
     private async sendReq(options: RequestOptions): Promise<void> {
         fetch(this.webhook, {
-            method: 'post',
+            method: "post",
             headers: {
-                'Content-Type': 'application/json',
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 username: this.name,
@@ -98,12 +101,14 @@ export default class Logger {
                         description: await this.descriptionBuilder(options),
                         fields: await this.fieldsBuilder(),
                         footer: {
-                            text: this.dateTime ? new Date().toLocaleString(this.dateTime.locale, { timeZone: this.dateTime.timeZone }) : null,
-                            icon_url: this.icon
+                            text: this.dateTime
+                                ? new Date().toLocaleString(this.dateTime.locale, { timeZone: this.dateTime.timeZone })
+                                : null,
+                            icon_url: this.icon,
                         },
                     },
                 ],
-            })
+            }),
         });
     }
 
@@ -115,7 +120,12 @@ export default class Logger {
     private async descriptionBuilder(options: RequestOptions): Promise<string> {
         return `
             ${options.message ? options.message : ""}
-            ${options.json ? `\`\`\`${JSON.stringify(options.json)}\`\`\`` : ""}${options.error ? `\`\`\`${options.error.stack}\`\`\`` : ""}
+            ${options.error ? `\`\`\`${options.error.stack}\`\`\`` : ""}
+            ${
+                options.json
+                    ? `\`\`\`json\n${JSON.stringify(options.json, null, this.jsonPretty ? 2 : undefined)}\n\`\`\``
+                    : ""
+            }
         `;
     }
 
@@ -123,20 +133,22 @@ export default class Logger {
      * Build the log fields: include hostname and process id (PID)
      * @returns Array of fields
      */
-    private async fieldsBuilder(): Promise<({ name: string; value: string; inline: boolean; } | { name: string; value: number; inline: boolean; })[]> {
+    private async fieldsBuilder(): Promise<
+        ({ name: string; value: string; inline: boolean } | { name: string; value: number; inline: boolean })[]
+    > {
         const fields = [];
         if (this.host) {
             fields.push({
-                name: 'Host',
+                name: "Host",
                 value: hostname(),
-                inline: true
+                inline: true,
             });
         }
         if (this.pid) {
             fields.push({
-                name: 'PID',
+                name: "PID",
                 value: process.pid,
-                inline: true
+                inline: true,
             });
         }
         return fields;
@@ -182,9 +194,8 @@ export default class Logger {
 
     /** @type {RequestOptions} options - Request options */
     async custom(options: RequestOptions): Promise<void> {
-        options.type ? options.type : options.type = "CUSTOM";
-        options.color ? options.color : options.color = 12895428;
+        options.type ? options.type : (options.type = "CUSTOM");
+        options.color ? options.color : (options.color = 12895428);
         await this.sendReq(options);
     }
-
 }

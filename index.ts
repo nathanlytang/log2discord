@@ -1,17 +1,17 @@
-import Logger from './lib/logger.js';
+import Logger from "./lib/logger.js";
 
 export default {
     /**
      * @type {Logger} Default logger object
      */
-    Logger
+    Logger,
 };
 
 export {
     /**
      * @type {Logger} Explicit logger object
      */
-    Logger
+    Logger,
 };
 
 export interface LoggerOptions {
@@ -41,7 +41,7 @@ export interface LoggerOptions {
      * Show PID
      * ```js
      * pid: true, // Valid
-     * 
+     *
      * pid: false,  // Valid
      * ```
      */
@@ -50,7 +50,7 @@ export interface LoggerOptions {
      * Show hostname
      * ```js
      * host: true, // Valid
-     * 
+     *
      * host: false,  // Valid
      * ```
      */
@@ -62,11 +62,20 @@ export interface LoggerOptions {
      *  locale: string, // Eg. "en-US"
      *  timeZone: string // Eg. "America/New-York"
      * },
-     * 
+     *
      * dateTime: false, // Disable diplaying of date and time
      * ```
      */
     dateTime?: DateTimeOptions | false;
+    /**
+     * Specify is JSON should be pretty-printed
+     * ```js
+     * jsonPretty: true, // Valid
+     *
+     * jsonPretty: false,  // Valid
+     * ```
+     */
+    jsonPretty?: boolean;
 }
 
 export interface RequestOptions {
@@ -80,7 +89,7 @@ export interface RequestOptions {
     /**
      * Type of log (ERROR, WARN, DEBUG, INFO, CUSTOM).  The type field will be ignored unless logger.custom(...) is used.
      * ```js
-     * type: "CUSTOM TYPE" 
+     * type: "CUSTOM TYPE"
      * ```
      */
     type?: string;
@@ -111,11 +120,14 @@ export interface RequestOptions {
      * Optional error stack to display in log
      * ```js
      * error: Error("Error message") // Custom error is valid
-     * 
+     *
      * error: err // Error callback is valid
      * ```
      */
     error?: Error;
+    /**
+     * Optional list of fields
+     */
 }
 
 export interface DateTimeOptions {

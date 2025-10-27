@@ -27,16 +27,17 @@ const logger = new log2discord.Logger({
 ```
 
 ### Available configuration options
-|Option|Type|Description|Notes|
-|---|---|---|---|
-|webhook|`string`|A valid Discord webhook URL|It is recommended to store your webhook using .env|
-|icon|`string`|A valid image URL|Optional|
-|name|`string`|Your application name|Optional|
-|pid|`boolean`|Display process id|Optional|
-|host|`boolean`|Display hostname|Optional|
-|dateTime|`object` or `false`|Display date and time|Optional|
-|timeZone|`string`|Your chosen timezone (Default is UTC)|Optional|
-|locale|`string`|Your chosen locale|Optional|
+| Option     | Type                | Description                           | Notes                                              |
+| ---------- | ------------------- | ------------------------------------- | -------------------------------------------------- |
+| webhook    | `string`            | A valid Discord webhook URL           | It is recommended to store your webhook using .env |
+| icon       | `string`            | A valid image URL                     | Optional                                           |
+| name       | `string`            | Your application name                 | Optional                                           |
+| pid        | `boolean`           | Display process id                    | Optional                                           |
+| host       | `boolean`           | Display hostname                      | Optional                                           |
+| dateTime   | `object` or `false` | Display date and time                 | Optional                                           |
+| timeZone   | `string`            | Your chosen timezone (Default is UTC) | Optional                                           |
+| locale     | `string`            | Your chosen locale                    | Optional                                           |
+| jsonPretty | `boolean`           | Pretty Print JSON                     | Optional                                           |
 
 ## Usage
 
@@ -95,11 +96,11 @@ logger.custom({
 ![Custom log example](https://raw.githubusercontent.com/nathanlytang/log2discord/master/docs/examples/custom.png "Custom log example")
 
 ### Available logging options
-|Option|Type|Description|Notes|
-|---|---|---|---|
-|message|`string`|A message to be logged||
-|title|`string`|Title for your log message|Optional|
-|type|`string`|A custom log level|(Optional).  Will only be parsed if logger.custom(...) is used|
-|color|`number`|A color in decimal format|(Optional).  Will only be parsed if logger.custom(...) is used|
-|json|`json`|A valid json object|Optional|
-|error|`Error`|Log the error stack|Optional|
+| Option  | Type     | Description                | Notes                                                          |
+| ------- | -------- | -------------------------- | -------------------------------------------------------------- |
+| message | `string` | A message to be logged     |                                                                |
+| title   | `string` | Title for your log message | Optional                                                       |
+| type    | `string` | A custom log level         | (Optional).  Will only be parsed if logger.custom(...) is used |
+| color   | `number` | A color in decimal format  | (Optional).  Will only be parsed if logger.custom(...) is used |
+| json    | `json`   | A valid json object        | Optional                                                       |
+| error   | `Error`  | Log the error stack        | Optional                                                       |
