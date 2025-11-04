@@ -1,3 +1,4 @@
+# Node / build cache
 node_modules/
 .npm
 .eslintcache
@@ -6,10 +7,17 @@ node_modules/
 .env
 .cache
 
+# Docs and tests
 docs/
-lib/
 dist/test/
 test/
+
+# Other files
 .eslintrc.cjs
 index.ts
 tsconfig.json
+CHANGELOG.md
+
+# Exclude lib root, but keep dist/lib
+lib/
+!dist/lib/
